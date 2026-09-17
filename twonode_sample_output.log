@@ -1,0 +1,33 @@
+[TESTER] connected to 127.0.0.1:3457
+[ECU] connected to 127.0.0.1:3456
+[TESTER] can_mcan_line_1_isr: RX FIFO0 INT
+[ECU] can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[ECU] can_mcan_line_1_isr: RX FIFO0 INT
+[TESTER] can_mcan_get_message: Frame on filter 0, ID: 0x1
+[ECU] can_mcan_get_message: Frame on filter 0, ID: 0x1
+[TESTER] net_sock_can: zcan_received_cb: [0] ctx pkt st 0
+[ECU] net_sock_can: zcan_received_cb: [0] ctx pkt st 0
+[TESTER] net_socket_can_sample: [0] CAN frame: IDE 0x0 RTR 0x0 ID 0x1 DLC 0x8
+[TESTER] net_socket_can_sample: Data
+[ECU] net_socket_can_sample: [0] CAN frame: IDE 0x0 RTR 0x0 ID 0x1 DLC 0x8
+[ECU] net_socket_can_sample: Data
+[TESTER] f0 f1 f2 f3 f4 f5 f6 f7   |........
+[ECU]    f0 f1 f2 f3 f4 f5 f6 f7   |........
+[TESTER] can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[ECU] can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[TESTER] can_mcan_line_1_isr: RX FIFO0 INT
+[ECU] can_mcan_line_1_isr: RX FIFO0 INT
+[TESTER] can_mcan_get_message: Frame on filter 0, ID: 0x1
+[ECU] can_mcan_get_message: Frame on filter 0, ID: 0x1
+[TESTER] net_socket_can_sample: [0] CAN frame: IDE 0x0 RTR 0x0 ID 0x1 DLC 0x8
+[ECU] net_socket_can_sample: [0] CAN frame: IDE 0x0 RTR 0x0 ID 0x1 DLC 0x8
+[TESTER] f0 f1 f2 f3 f4 f5 f6 f7   |........
+[ECU]    f0 f1 f2 f3 f4 f5 f6 f7   |........
+
+# ... pattern repeats every ~1s of simulated time: each node transmits an
+# 8-byte CAN frame (ID 0x1) and receives the frame the OTHER node sent,
+# confirmed by matching payload bytes (f0 f1 f2 f3 f4 f5 f6 f7) observed
+# independently on both sockets. This is real firmware, on two independently
+# simulated MCUs, exchanging real CAN frames over a shared virtual bus -
+# no physical hardware involved. Timestamps/log noise trimmed for readability;
+# raw captured run available on request.

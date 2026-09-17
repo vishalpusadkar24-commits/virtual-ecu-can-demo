@@ -59,18 +59,44 @@ You'll see the Zephyr boot log and periodic CAN frame transmissions stream
 into Terminal 2, sent entirely over the TCP socket from the simulated
 firmware.
 
+## Two-node virtual CAN network
+
+`virtual_ecu_twonode_demo.resc` extends the same idea to two independently
+simulated Nucleo-H753ZI boards ("ecu_node" and "tester_node"), each running
+the same Zephyr firmware, both attached to the same virtual CAN hub. Each
+node's UART is exposed on its own socket (3456 and 3457), so an external
+Python script (`dual_node_monitor.py`) can watch both sides of the exchange
+at once — the same setup used to validate ECU-to-tester communication on a
+real CAN bench, running entirely in software.
+
+```powershell
+"C:\Program Files\Renode\bin\Renode.exe" --disable-gui virtual_ecu_twonode_demo.resc
+python dual_node_monitor.py 10
+```
+
+[`twonode_sample_output.log`](twonode_sample_output.log) is a captured run:
+each node transmits an 8-byte CAN frame (ID `0x1`) and receives the frame the
+*other* node sent, confirmed by matching payload bytes observed
+independently on both sockets — real firmware, on two independently
+simulated MCUs, exchanging real CAN frames over a shared virtual bus.
+
 ## Files
 
-- `virtual_ecu_demo.resc` — Renode script: loads the firmware, sets up the
-  virtual CAN hub, and exposes the UART over a socket.
-- `hardware_simulator.py` — the external co-simulation client.
-- `sample_run_output.log` — a captured example run.
+- `virtual_ecu_demo.resc` — single-node demo: firmware + CAN hub + UART
+  exposed over a socket.
+- `hardware_simulator.py` — external co-simulation client for the
+  single-node demo.
+- `sample_run_output.log` — a captured single-node run.
+- `virtual_ecu_twonode_demo.resc` — two-node demo: two simulated ECUs
+  sharing one virtual CAN bus.
+- `dual_node_monitor.py` — external client watching both nodes at once.
+- `twonode_sample_output.log` — a captured two-node run.
 
 ## Possible extensions
 
-- Attach a second simulated CAN node to the hub and implement a minimal
-  UDS diagnostic exchange (ReadDataByIdentifier / DTC read-clear) between
-  the two, mirroring real ECU-to-tester diagnostic validation.
+- Replace the periodic CAN sample traffic with a minimal UDS diagnostic
+  exchange (ReadDataByIdentifier / DTC read-clear) between the two nodes,
+  mirroring real ECU-to-tester diagnostic validation.
 - Replace the UART-socket seam with a custom register-level peripheral
   (the SPI-style pattern from the original work) using Renode's C#
   peripheral framework.

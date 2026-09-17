@@ -1,0 +1,40 @@
+:name: Two-Node Virtual CAN Network - ECU + Tester
+:description: Two independently simulated Nucleo-H753ZI boards, each running real Zephyr firmware, connected over a shared virtual CAN bus inside Renode. Each node's UART is exposed over its own TCP socket so an external process can observe both sides of the CAN exchange independently - the same architecture used to validate ECU-to-tester diagnostic communication on a real CAN bench, just running entirely in simulation.
+
+using sysbus
+
+$bin=@https://dl.antmicro.com/projects/renode/nucleo_h743zi--zephyr-samples-net-sockets-can.elf-s_2243040-d8ba11b258437935c3880cf3e162f448f55c6f17
+
+# Shared virtual CAN bus both nodes will be attached to.
+emulation CreateCANHub "canHub"
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+
+################################################
+# Node 1 - "ECU"
+################################################
+mach create "ecu_node"
+include @platforms/boards/nucleo_h753zi.repl
+runMacro $reset
+connector Connect fdcan1 canHub
+emulation CreateServerSocketTerminal 3456 "ecuUART"
+connector Connect sysbus.usart3 ecuUART
+
+mach clear
+
+################################################
+# Node 2 - "Tester"
+################################################
+mach create "tester_node"
+include @platforms/boards/nucleo_h753zi.repl
+runMacro $reset
+connector Connect fdcan1 canHub
+emulation CreateServerSocketTerminal 3457 "testerUART"
+connector Connect sysbus.usart3 testerUART
+
+mach clear
+
+start
