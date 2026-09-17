@@ -1,0 +1,29 @@
+:name: STM32 NUCLEO-H753ZI - Virtual ECU Socket Co-Simulation Demo
+:description: Boots a Zephyr CAN-networking sample on a Renode-simulated Nucleo H753ZI and exposes its UART over a TCP socket, so an external Python "hardware simulator" process can observe and interact with the virtual ECU the same way an external test harness talks to real hardware over a physical interface.
+
+using sysbus
+
+$bin=@https://dl.antmicro.com/projects/renode/nucleo_h743zi--zephyr-samples-net-sockets-can.elf-s_2243040-d8ba11b258437935c3880cf3e162f448f55c6f17
+
+mach create "nucleo_h743zi"
+include @platforms/boards/nucleo_h753zi.repl
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+
+runMacro $reset
+
+# Internal virtual CAN bus - a second simulated node could be attached here
+# later to exchange UDS diagnostic frames with this ECU.
+emulation CreateCANHub "canHub"
+connector Connect fdcan1 canHub
+
+# Expose the ECU's UART over a TCP socket - this is the co-simulation seam.
+# An external process (see hardware_simulator.py) connects here exactly like
+# a real HIL test bench talks to a board over a physical UART/SPI link.
+emulation CreateServerSocketTerminal 3456 "externalUART"
+connector Connect sysbus.usart3 externalUART
+
+start

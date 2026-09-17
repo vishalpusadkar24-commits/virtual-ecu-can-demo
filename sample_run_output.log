@@ -1,0 +1,41 @@
+[sim] connecting to virtual ECU UART at 127.0.0.1:3456 ...
+[sim] connected. Streaming UART output from the simulated firmware:
+
+[00:00:00.000,000] <dbg> can_mcan: can_mcan_init: IP rel: 3.3.1 09.17.33
+[00:00:00.000,000] <dbg> can_stm32h7: can_stm32h7_get_core_clock: rate=8000000
+[00:00:00.000,000] <dbg> can_mcan: can_mcan_init: Presc: 1, TS1: 55, TS2: 8
+[00:00:00.000,000] <dbg> can_mcan: can_mcan_init: Sample-point err : 0
+[00:00:00.000,000] <dbg> can_stm32h7: stm32h7_mcan_irq_config_0: Enable CAN inst0 IRQ
+*** Booting Zephyr OS build v3.5.0-rc2 ***
+[00:00:02.000,000] <dbg> net_sock_can: can_register_filters: (0x24000910): Registering 1 filters
+[00:00:02.000,000] <dbg> net_sock_can: can_register_receiver: (0x24000910): Max 1 receivers
+[00:00:02.000,000] <dbg> can_mcan: can_mcan_add_rx_filter_std: Attached std filter at 0
+[00:00:02.000,000] <dbg> net_socket_can_sample: setup_socket: Started socket CAN TX thread
+[00:00:02.000,000] <inf> net_socket_can_sample: 1st RX fd 0
+[00:00:02.000,000] <dbg> net_socket_can_sample: rx: [0] Waiting CAN data...
+[00:00:03.000,000] <dbg> net_socket_can_sample: tx: Sending CAN data...
+[00:00:03.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:04.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:05.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:06.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:07.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:08.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:09.000,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:10.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:11.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:12.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:13.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:14.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:15.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:16.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:17.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:18.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:19.001,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:20.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:21.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:22.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:23.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:24.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+[00:00:25.002,000] <dbg> can_mcan: can_mcan_send: Sending 8 bytes. Id: 0x1, ID type: standard
+
+[sim] done. Received 3564 bytes total from the virtual ECU.
