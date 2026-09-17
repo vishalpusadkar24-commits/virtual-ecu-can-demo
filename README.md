@@ -1,5 +1,7 @@
 # Virtual ECU / Socket Co-Simulation Demo
 
+![Architecture diagram](architecture_diagram.png)
+
 A small, self-contained demo of the pre-silicon validation pattern used in
 production automotive firmware work: **run real firmware against a fully
 simulated MCU, and let an external process talk to it over a socket instead
